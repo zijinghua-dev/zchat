@@ -1,0 +1,30 @@
+{
+    "name": "zijinghua-dev/zchat",
+    "description": "the chat system",
+    "type": "library",
+    "require": {
+        "illuminate/support": "~5.5|~6.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zijinghua\\Zchat\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "zijinghua",
+            "email": "sysadmin@haokuaidian.cn"
+        }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zijinghua\\Zchat\\ZServiceProvider"
+            ]
+        }
+    }
+}
