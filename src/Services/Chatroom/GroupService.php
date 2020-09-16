@@ -29,13 +29,16 @@ class GroupService extends BaseService
      */
     public function store($request)
     {
-        $params = collect($request->only(['creator_id', 'answers_id']));
-        $params = $params->merge(['project_id' => config('zchat.chat.project_id')]);
+        $userId = Auth::id();
+        $params = collect($request->only(['answers_id']));
+        $params = $params->merge([
+            'project_id' => config('zchat.chat.project_id'),
+            'creator_id' =>$userId
+        ]);
         $response = $this->groupRepository->store($params->all());
         if (!$response || (isset($response['httpCode']) && $response['httpCode'] >= 400)) {
             $messageResponse = $this->messageResponse($this->getSlug(), 'groupstore.submit.failed');
         } else {
-//            $result = $this->formateData($response);
             $messageResponse = $this->messageResponse(
                 $this->getSlug(),
                 'groupstore.submit.success',
@@ -56,11 +59,14 @@ class GroupService extends BaseService
     public function index($request)
     {
         $userId = Auth::id();
-        $params = collect($request->only(['creator_id', 'answers_id']));
-        $params = $params->merge(['user_id' => $userId]);
+        $params = collect($request->only(['answers_id']));
+        $params = $params->merge([
+            'user_id' => $userId,
+            'creator_id' => $userId
+        ]);
         $response = $this->groupRepository->list($params->all());
 
-        if (!$response || (isset($response['httpCode']) && $response['httpCode'] >= 400)) {
+        if ((isset($response['httpCode']) && $response['httpCode'] >= 400)) {
             $messageResponse = $this->messageResponse($this->getSlug(), 'groupindex.submit.failed');
         } else {
             $messageResponse = $this->messageResponse(

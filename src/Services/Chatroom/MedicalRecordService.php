@@ -62,7 +62,7 @@ class MedicalRecordService extends BaseService
         $params = collect($request->only(['to', 'limit', 'firstid']));
         $params = $params->merge(['user_id' => $userId]);
         $response = $this->recordRepository->list($params->all());
-        if (!$response || (isset($response['httpCode']) && $response['httpCode'] >= 400)) {
+        if ((isset($response['httpCode']) && $response['httpCode'] >= 400)) {
             $messageResponse = $this->messageResponse($this->getSlug(), 'recordindex.submit.failed');
         } else {
             $messageResponse = $this->messageResponse(
