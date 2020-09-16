@@ -1,17 +1,5 @@
 <?php
 return [
-    'from' => [
-        [
-            'rule' => [
-                'required',
-                'numeric',
-                'min:1'
-            ],
-            'action' => [
-                'messagestore',
-            ],
-        ],
-    ],
     'to' => [
         [
             'rule' => [

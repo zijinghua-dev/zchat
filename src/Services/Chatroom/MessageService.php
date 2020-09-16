@@ -29,8 +29,12 @@ class MessageService extends BaseService
      */
     public function store($request)
     {
-        $params = collect($request->only(['from', 'to', 'type', 'content']));
-        $params = $params->merge(['project_id' => config('zchat.chat.project_id')]);
+        $userId = Auth::id();
+        $params = collect($request->only(['to', 'type', 'content']));
+        $params = $params->merge([
+            'from' => $userId,
+            'project_id' => config('zchat.chat.project_id')
+        ]);
         $response = $this->messageRepository->store($params->all());
         if (!$response || (isset($response['httpCode']) && $response['httpCode'] > 406)) {
             $messageResponse = $this->messageResponse($this->getSlug(), 'messagestore.submit.failed');
@@ -62,7 +66,7 @@ class MessageService extends BaseService
         $params = collect($request->only(['to', 'limit', 'firstid']));
         $params = $params->merge(['user_id' => $userId]);
         $response = $this->messageRepository->list($params->all());
-        if (!$response || (isset($response['httpCode']) && $response['httpCode'] >= 400)) {
+        if ((isset($response['httpCode']) && $response['httpCode'] >= 400)) {
             $messageResponse = $this->messageResponse($this->getSlug(), 'messageindex.submit.failed');
         } else {
             $messageResponse = $this->messageResponse(

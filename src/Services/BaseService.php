@@ -9,16 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class BaseService extends BasementService
 {
-    public $userId;
-
-    /**
-     * BaseService constructor.
-     */
-    public function __construct()
-    {
-        $this->userId = Auth::id();
-    }
-
     /**
      * 格式化输出
      * @param $data
