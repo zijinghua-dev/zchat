@@ -70,7 +70,7 @@ return [
             ],
         ],
     ],
-    'user_name' => [
+    'nickname' => [
         [
             'rule' => [
                 'string',

@@ -65,7 +65,7 @@ return [
             ]
         ],
     ],
-    'user_name'=>[
+    'nickname'=>[
         [
             'message'=>[
                 'string'=>'必须是字符串类型',
