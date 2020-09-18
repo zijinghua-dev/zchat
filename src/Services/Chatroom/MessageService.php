@@ -89,7 +89,7 @@ class MessageService extends BaseService
     public function delete($request)
     {
         $userId = Auth::id();
-        $params = collect($request->only(['id', 'user_name']));
+        $params = collect($request->only(['id', 'nickname']));
         $params = $params->merge(['user_id' => $userId]);
         $response = $this->messageRepository->delete($params->all());
 
