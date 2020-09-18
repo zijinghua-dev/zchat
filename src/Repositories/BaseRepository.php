@@ -30,7 +30,7 @@ class BaseRepository
     public function store($params)
     {
         $uri = $this->baseUri . '/store';
-        $result = $this->httpRequest('post', $uri, $params);
+        $result = $this->httpRequest($uri, $params);
         return $result;
     }
 
@@ -41,8 +41,8 @@ class BaseRepository
      */
     public function delete($params)
     {
-        $uri = $this->baseUri;
-        $result = $this->httpRequest('delete', $uri, $params);
+        $uri = $this->baseUri . '/delete';
+        $result = $this->httpRequest($uri, $params);
         return $result;
     }
     /**
@@ -52,45 +52,10 @@ class BaseRepository
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function httpRequest($method, $uri, $params = null)
+    public function httpRequest($uri, $params = null)
     {
-        switch ($method) {
-            case 'post':
-                $response = $this->postData($uri, $params);
-                break;
-            case 'get':
-                $response = $this->getData($uri);
-                break;
-            case 'delete':
-                $response = $this->postData($uri, $params, 'DELETE');
-                break;
-            default:
-                $response = $this->postData($uri, $params);
-        }
+        $response = $this->postData($uri, $params);
         return $response;
-    }
-
-    /**
-     * @param $uri
-     * @return mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    protected function getData($uri)
-    {
-        try {
-            $params = [
-                'headers' => [
-                    'Content-Type' => 'application/x-www-form-urlencoded'
-                ]
-            ];
-            $response = $this->client->request('GET', $uri, $params);
-            $responseDecode = json_decode($response->getBody()->__toString(), true);
-            return $responseDecode;
-        } catch (\Exception $exception) {
-            throw new \Exception($exception->getMessage(), $exception->getCode());
-        } catch (ClientException $exception) {
-            throw new \Exception($exception->getMessage(), $exception->getCode());
-        }
     }
     /**
      * @param $uri
