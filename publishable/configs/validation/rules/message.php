@@ -62,6 +62,7 @@ return [
     'id' => [
         [
             'rule' => [
+                'required',
                 'numeric',
                 'min:1'
             ],
@@ -73,7 +74,9 @@ return [
     'nickname' => [
         [
             'rule' => [
+                'required',
                 'string',
+                'min:1'
             ],
             'action' => [
                 'messagedelete',
