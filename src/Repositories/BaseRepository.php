@@ -19,7 +19,7 @@ class BaseRepository
     public function list($params)
     {
         $uri = $this->baseUri;
-        $result = $this->httpRequest('post', $uri, $params);
+        $result = $this->httpRequest($uri, $params);
         return $result;
     }
     /**
