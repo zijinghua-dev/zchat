@@ -31,6 +31,12 @@ class GroupController extends BaseController
         return $result->response();
     }
 
+    /**
+     * chatroom group index
+     * @param IndexRequest $request
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function index(IndexRequest $request)
     {
         $result = $this->groupService->index($request);
